@@ -39,7 +39,7 @@ extern union DemoFlags flags;
 //  ADDON_GPS_NMEA
 //  ...
 #ifdef OTHERS
-  not tested yet ERROR
+  not tested yet ERROR ;-)
 #endif
 
 void testEncCircle(void);   // rotate 8 LEDs in a circle using the encoder
@@ -112,14 +112,14 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
 #elif defined(ADDON_MPU6000)
     #define TEST_ADDON() testMPU6000()
     #define _XTAL_FREQ  1000000
-    #include "MPUxxxx/MPU6000.h"
+    #include "IMU/MPU6000.h"
     #include "LCD/GLCDnokia.h"
 
 
 #elif defined(ADDON_ACC_CIRCLE)
     #define TEST_ADDON() testAccCircle()
     #define _XTAL_FREQ  8000000
-    #include "MPUxxxx/MPU6000.h"
+    #include "IMU/MPU6000.h"
     #include <math.h>
     #define USE_LED_CIRCLE
 
@@ -137,14 +137,14 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
 #elif defined (ADDON_BMP280)
     #define TEST_ADDON() testBMP280()
     #define _XTAL_FREQ  1000000
-    #include "BMPxxx/BMP280.h"
+    #include "Pressure/BMP280.h"
     #include "LCD/GLCDnokia.h"
 
 
 #elif defined (ADDON_DS18B20)
     #define TEST_ADDON() testDS18B20()
     #define _XTAL_FREQ  4000000
-    #include "DS18x20/DS18x20.h"
+    #include "Temp/DS18x20.h"
     #include "LCD/GLCDnokia.h"
 
 
@@ -190,7 +190,7 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
     #define APA102_C_TRI    TRISCbits.TRISC3
     #define APA102_C_ANS    ANSELCbits.ANSC3
 
-    
+
 #elif defined (ADDON_RGB_LED)
     #define TEST_ADDON() testRGB_LED()
     #define _XTAL_FREQ  16000000
@@ -202,14 +202,14 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
     extern unsigned char rgbFrequency, dutyR, dutyG, dutyB;
     extern unsigned short rgbTime, startG, startB, endRGB;
     extern __bit rgbSeq, rgbExp;
-    
+
 // RGB_CC
     #define rgbLED_ON   1
     #define rgbLED_OFF  0
 // RGB_CA
 //    #define rgbLED_ON   0
 //    #define rgbLED_OFF  1
-    
+
     #define LED_R_VAL LATCbits.LATC6
     #define LED_R_TRI TRISCbits.TRISC6
     #define LED_R_ANS ANSELCbits.ANSC6
@@ -250,11 +250,11 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
     #define ERROR_SYNC()    GLCD_Text2Out(1,0,"ES")
     #define ERROR_PERIOD()  GLCD_Text2Out(1,0,"EP")
     #define ERROR_DUTY()    GLCD_Text2Out(1,0,"ED")
-    
+
 #elif defined (ADDON_SHT21)
     #define TEST_ADDON() testSHT21()
     #define _XTAL_FREQ  16000000
-    #include "SHT21/SHT21.h"
+    #include "TempHum/SHT21.h"
     #include "LCD/GLCDnokia.h"
 
 

@@ -7,6 +7,10 @@
             <creation-uuid>81cf8f0e-3a12-4d27-aae7-7be363cd85fc</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <asminc-extensions/>
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../../C-LIB/HS-Ulm/MPU6000</sourceRootElem>
@@ -51,6 +55,10 @@
                 <sourceRootElem>../_C_LIB/THU/SHT21</sourceRootElem>
                 <sourceRootElem>../_C_LIB/THU/LCD</sourceRootElem>
                 <sourceRootElem>.</sourceRootElem>
+                <sourceRootElem>../_C_LIB/THU/Temp</sourceRootElem>
+                <sourceRootElem>../_C_LIB/THU/TempHum</sourceRootElem>
+                <sourceRootElem>../_C_LIB/THU/IMU</sourceRootElem>
+                <sourceRootElem>../_C_LIB/THU/Pressure</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
