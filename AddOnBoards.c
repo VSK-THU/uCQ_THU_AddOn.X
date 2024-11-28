@@ -132,7 +132,7 @@ void testSRF0X(void)
     GLCD_Text2Out(0,1," SRF-05 ");
   #else
     GLCD_Text2Out(0,1," SRF-04 ");
-    
+
   #endif
     GLCD_Text2Out(1,1,"     cm ");
 
@@ -414,7 +414,7 @@ void testBMP280(void)
 #if defined(ADDON_BMP280)
     unsigned char error;
 //--------------------------------------------------------------------- __init()
-  #if _XTAL_FREQ != 1000000
+  #if _XTAL_FREQ == 1000000
     OSCCONbits.IRCF = IRCF_1MHZ; OSCTUNEbits.PLLEN = 0;
   #else
     #error "Please define in _XTAL_FREQ in AddOnBoards.h"
@@ -426,19 +426,20 @@ void testBMP280(void)
     mENC_IR_RST();
     mENC_IR_EN();
 
-    LCD_Init();
-    LCD_ConstTextOut(0,0," BMP280 ");
+    GLCD_Init();
+    GLCD_Text2Out(0,0," BMP280 ");
+    GLCD_Text2Out(1,0," ??.?? C");
 
     flags.all = 0;
 //    state = 0;
-
+    
+    error = initBMP280();
+    
     INTCONbits.GIE = 1;
 //----------------------------------------------------------------------- main()
     while(1){
 
-        error = initBMP280();
-
-        ###TODO###
+        TODO ;-)
 
         __delay_ms(500);
     }
@@ -577,7 +578,7 @@ void testAPA102(void)
     GLCD_Value2Out(0,0,NR_OF_LED);
     GLCD_Text2Out(0,2," APA102");
     GLCD_Text2Out(1,2,strFreq);
-    
+
     initAPA102();
 
 //----------------------------------------------------------------------- main()
@@ -587,35 +588,35 @@ void testAPA102(void)
             ledColors[i++] = 0xFF; ledColors[i++] = 0x00;
             ledColors[i++] = 0x00; ledColors[i] = 0x00; }
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
-        
+
         for(i = 3; i<SIZE_LED_DATA; i+=4){
             ledColors[i] = 0x55;}                                   // red
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
-        
+
         for(i = 2; i<SIZE_LED_DATA; i+=3){
             ledColors[i++] = 0x55; ledColors[i] = 0x00; }           // green
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
-        
+
         for(i = 1; i<SIZE_LED_DATA; i+=3){
             ledColors[i++] = 0x55; ledColors[i] = 0x00; }           // blue
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
-        
+
         for(i = 2; i<SIZE_LED_DATA; i+=4){
             ledColors[i] = 0x55; }                                  // +green
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
-        
+
         for(i = 3; i<SIZE_LED_DATA; i+=4){
             ledColors[i] = 0x55; }                                  // +red
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
-        
+
         for(i = 0; i<SIZE_LED_DATA; i+=4){
             ledColors[i] = 0xE9; }                                  // - brightn
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
- 
+
         for(i = 1; i<SIZE_LED_DATA; i+=4){
             ledColors[i] = 0x00; }                                  // - blue
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);   // >yellow
-        
+
         for(i = 0; i<SIZE_LED_DATA; i+=4){
             ledColors[i] = 0xE3; }                                  // - brightn
         APA102_wr(&ledColors[0],SIZE_LED_DATA); __delay_ms(1000);
@@ -979,9 +980,9 @@ void testIRC_NEC(void)
     #error "Please define in _XTAL_FREQ in AddOnBoards.h"
   #endif
 
-    
+
     ###TODO###
-    
+
     LCD_Init();
     LCD_ConstTextOut(0,0,"IR CTRL ");
     LCD_ConstTextOut(1,0,"????????");
