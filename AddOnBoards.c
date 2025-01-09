@@ -408,43 +408,6 @@ void testGPS_NMEA(void)
 #endif //defined(ADDON_GPS_NMEA)
 }
 
-//###################################################################### BMP280
-void testBMP280(void)
-{
-#if defined(ADDON_BMP280)
-    unsigned char error;
-//--------------------------------------------------------------------- __init()
-  #if _XTAL_FREQ != 1000000
-    OSCCONbits.IRCF = IRCF_1MHZ; OSCTUNEbits.PLLEN = 0;
-  #else
-    #error "Please define in _XTAL_FREQ in AddOnBoards.h"
-  #endif
-
-    ENC_BTN_TRI = INPUT_PIN;
-    ENC_INT_TRI = INPUT_PIN;
-    ENC_DIR_TRI = INPUT_PIN;
-    mENC_IR_RST();
-    mENC_IR_EN();
-
-    LCD_Init();
-    LCD_ConstTextOut(0,0," BMP280 ");
-
-    flags.all = 0;
-//    state = 0;
-
-    INTCONbits.GIE = 1;
-//----------------------------------------------------------------------- main()
-    while(1){
-
-        error = initBMP280();
-
-        ###TODO###
-
-        __delay_ms(500);
-    }
-#endif //defined(ADDON_BMP280)
-}
-
 //###################################################################### DS18B20
 void testDS18B20(void)
 {
@@ -965,6 +928,115 @@ void testSHT21(void)
 #endif //defined(ADDON_SHT21)
 }
 
+//###################################################################### BMP280
+void testBMP280(void)
+{
+#if defined(ADDON_BMP280)
+    unsigned char error;
+//--------------------------------------------------------------------- __init()
+  #if _XTAL_FREQ == 1000000
+    OSCCONbits.IRCF = IRCF_1MHZ; OSCTUNEbits.PLLEN = 0;
+  #else
+    #error "Please define in _XTAL_FREQ in AddOnBoards.h"
+  #endif
+
+    GLCD_Init();
+    GLCD_Text2Out(0,1,"BMP280");
+    GLCD_Text2Out(1,1,"?nyd?");
+    
+    flags.all = 0;
+//    state = 0;
+
+    INTCONbits.GIE = 1;
+
+    error = initBMP280();
+//----------------------------------------------------------------------- main()
+    while(1){
+
+ //       ###TODO###
+
+        __delay_ms(500);
+    }
+#endif //defined(ADDON_BMP280)
+}
+
+//###################################################################### BH1750
+void testBH1750(void)
+{
+#if defined(ADDON_BH1750)
+    unsigned char error;
+//--------------------------------------------------------------------- __init()
+  #if _XTAL_FREQ == 1000000
+    OSCCONbits.IRCF = IRCF_1MHZ; OSCTUNEbits.PLLEN = 0;
+  #else
+    #error "Please define in _XTAL_FREQ in AddOnBoards.h"
+  #endif
+
+    GLCD_Init();
+    GLCD_Text2Out(0,1,"BH1750");
+    GLCD_Text2Out(1,1,"?nyd?");
+    
+    flags.all = 0;
+//    state = 0;
+
+    INTCONbits.GIE = 1;
+
+//    error = initBMP280();
+//----------------------------------------------------------------------- main()
+    while(1){
+
+ //       ###TODO###
+
+        __delay_ms(500);
+    }
+#endif //defined(ADDON_BH1750)
+}
+
+//#################################################################### LTR390UV
+void testLTR390UV(void)
+{
+#if defined(ADDON_LTR390UV)
+    unsigned char error;
+//--------------------------------------------------------------------- __init()
+  #if _XTAL_FREQ == 16000000
+    OSCCONbits.IRCF = IRCF_16MHZ; OSCTUNEbits.PLLEN = 0;
+  #else
+    #error "Please define in _XTAL_FREQ in AddOnBoards.h"
+  #endif
+
+    GLCD_Init();
+    GLCD_Text2Out(0,1,"LTR390UV");
+    GLCD_Text2Out(1,4,"?");
+    
+    flags.all = 0;
+//    state = 0;
+
+    ANSELCbits.ANSC3 = ANSELCbits.ANSC4 = 0;    // I2C pins
+    TRISCbits.TRISC3 = TRISCbits.TRISC4 = 1;
+
+    SSP1ADD = 39;                               // I2C baudrate 100kHz
+
+    if(findLTR390()){
+        SSP1CON1bits.SSPEN = 0; TRISCbits.TRISC3 = 0;   // SCL conflict
+        GLCD_Text2Out(1,2,"found");
+        TRISCbits.TRISC3 = 1; SSP1CON1bits.SSPEN = 1;
+    }
+//----------------------------------------------------------------------- main()
+    while(1){
+
+ //       ###TODO###
+
+//            SSP1CON1bits.SSPEN = 0; TRISCbits.TRISC3 = 0;   // SCL conflict
+//            GLCD_Value2Out_00(1,1,temp_int,2);
+//            GLCD_Value2Out_00(1,4,temp_dec,2);
+//            TRISCbits.TRISC3 = 1; SSP1CON1bits.SSPEN = 1;
+        __delay_ms(500);
+    }
+#endif //defined(ADDON_LTR390UV)
+}
+
+
+
 void testIRC_NEC(void)
 {
 #if defined(ADDON_IRC_NEC)
@@ -982,9 +1054,9 @@ void testIRC_NEC(void)
     
     ###TODO###
     
-    LCD_Init();
-    LCD_ConstTextOut(0,0,"IR CTRL ");
-    LCD_ConstTextOut(1,0,"????????");
+    GLCD_Init();
+    GLCD_Text2Out(0,0,"IR CTRL ");
+    GLCD_Text2Out(1,1,"?nyd?");
 //
     ircNECdecoder_init();
     SAEFWQircNECdecoder_L();
