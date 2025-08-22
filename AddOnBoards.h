@@ -54,7 +54,9 @@ void testRGB_LED(void);     // common Cathode or Anode RGB demo (encoder/GLCD)
 void testDCF77(void);       // receive a DCF77 time signal -> GLCD
 void testSHT21(void);       // i2c temperature sensor -> GLCD
 void testIRC_NEC(void);     // IR (not yet done)
-void testBMP280(void);      // barometric pressure sensor not yet done()
+void testBMP280(void);      // barometric pressure sensor not yet done!
+void testBH1750(void);      // color sensor not yet done!
+void testLTR390UV(void);    // UV and ambient light sensor not yet done!
 
 //##############################################################################
 
@@ -132,14 +134,6 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
     #include "GPS/gpsNMEA.h"
     #include "LCD/GLCDnokia.h"
     #include "PLIB/plib18fxxk22.h"
-
-
-#elif defined (ADDON_BMP280)
-    #define TEST_ADDON() testBMP280()
-    #define _XTAL_FREQ  1000000
-    #include "Pressure/BMP280.h"
-    #include "LCD/GLCDnokia.h"
-
 
 #elif defined (ADDON_DS18B20)
     #define TEST_ADDON() testDS18B20()
@@ -257,6 +251,23 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
     #include "TempHum/SHT21.h"
     #include "LCD/GLCDnokia.h"
 
+#elif defined (ADDON_BMP280)
+    #define TEST_ADDON() testBMP280()
+    #define _XTAL_FREQ  1000000
+    #include "Pressure/BMP280.h"
+    #include "LCD/GLCDnokia.h"
+
+#elif defined (ADDON_BH1750)
+    #define TEST_ADDON() testBH1750()
+    #define _XTAL_FREQ  1000000
+    #include "Opto/BH1750.h"
+    #include "LCD/GLCDnokia.h"
+
+#elif defined (ADDON_LTR390UV)
+    #define TEST_ADDON() testLTR390UV()
+    #define _XTAL_FREQ  16000000
+    #include "Opto/LTR390UV.h"
+    #include "LCD/GLCDnokia.h"
 
 #elif defined (ADDON_IRC_NEC)
     #define TEST_ADDON() testIRC_NEC()
@@ -264,6 +275,7 @@ void testBMP280(void);      // barometric pressure sensor not yet done()
     #include "ircDecoder/ircNEC.h"
     #include "LCD/GLCDnokia.h"
 
+    
 #endif  // board selection
 
 

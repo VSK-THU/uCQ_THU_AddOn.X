@@ -59,6 +59,7 @@
                 <sourceRootElem>../_C_LIB/THU/TempHum</sourceRootElem>
                 <sourceRootElem>../_C_LIB/THU/IMU</sourceRootElem>
                 <sourceRootElem>../_C_LIB/THU/Pressure</sourceRootElem>
+                <sourceRootElem>../_C_LIB/THU/Opto</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>
@@ -115,6 +116,14 @@
                 </confElem>
                 <confElem>
                     <name>BMP280</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>BH1750</name>
+                    <type>2</type>
+                </confElem>
+                <confElem>
+                    <name>LTR390UV</name>
                     <type>2</type>
                 </confElem>
             </confList>
